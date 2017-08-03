@@ -9,7 +9,7 @@ module.exports = io => {
 
   // a reusable function
   const respondWithAllTweets = (req, res, next) => {
-      client.query('SELECT * FROM tweets INNER JOIN users ON tweets.user_id = users.id', function (err, result) {
+      client.query('SELECT * FROM users INNER JOIN tweets ON tweets.user_id = users.id', function (err, result) {
   if (err) return next(err); // pass errors to Express
   var tweets = result.rows;
   // console.log('test')
@@ -39,7 +39,7 @@ module.exports = io => {
 
   // single-tweet page
   router.get('/tweets/:id', (req, res, next) => {
-      client.query('SELECT * FROM tweets INNER JOIN users on users.id = tweets.user_id WHERE tweets.id=$1', [req.params.id], function (err, data) {
+      client.query('SELECT * FROM users INNER JOIN tweets on users.id = tweets.user_id WHERE tweets.id=$1', [req.params.id], function (err, data) {
         if (err) next(err);
         var tweet = data.rows
     res.render('index', {
