@@ -55,7 +55,7 @@ module.exports = io => {
     var content = req.body.text
    client.query('SELECT id FROM users WHERE name=$1', [name], function(err, data) {
       if (err) next(err);
-       var user_id = data.rows[0].id;
+      var user_id = data.rows[0].id
            client.query('INSERT INTO tweets (user_id, content) VALUES ($1, $2)', [user_id, content], function (err, data) {
           // console.log('USER ID!', user_id);
       if (err) next(err);
